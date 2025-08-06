@@ -1,0 +1,37 @@
+# Includi questo nella root del repo
+# Ignora output e file temporanei
+
+# Per entrambi CPU e GPU
+CPU/*.dat
+CPU/*.csv
+CPU/*.log
+CPU/*.png
+CPU/*.nc
+CPU/*.out
+CPU/*.vtk
+CPU/*.bin
+CPU/*~
+
+GPU/*.dat
+GPU/*.csv
+GPU/*.log
+GPU/*.png
+GPU/*.nc
+GPU/*.out
+GPU/*.vtk
+GPU/*.bin
+GPU/*~
+
+# File generati dalla compilazione
+CPU/*.o
+CPU/*.mod
+CPU/main.exe
+GPU/*.o
+GPU/*.mod
+GPU/main.exe
+
+
+# Editor backup files
+*.swp
+*~
+
