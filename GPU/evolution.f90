@@ -16,8 +16,8 @@ integer :: i, j
 
 time = 0
 !$cuf kernel do(2) <<<*,*>>>
-do i = 1,nx
 do j = 1,ny
+do i = 1,nx
   if (x_d(i) == 20 .and. y_d(j) == 130) field_d(i,j) = 1
   if (x_d(i) == 21 .and. y_d(j) == 129) field_d(i,j) = 1
   if (x_d(i) == 22 .and. y_d(j) == 129) field_d(i,j) = 1
@@ -47,26 +47,26 @@ time  = time + 1
 call communicate()
 field_d = field
 !$cuf kernel do(2) <<<*,*>>>
-do i = 1,nx
 do j = 1,ny
+do i = 1,nx ! Massive improvement (about x2 !!) if we follow this order
 
   !call count_active_neighbors(i, j, neighbors_active)         ! This is inefficient
   neighbors_active = sum(field_d(i-1:i+1, j-1:j+1)) - field_d(i,j) ! This is more efficient
 
 
 
-  if (field_d(i,j) == 1 ) then
-    if (neighbors_active < 2) field_new_d(i,j) = 0
-    if (neighbors_active == 2 .or. neighbors_active == 3) field_new_d(i,j) = 1
-    if (neighbors_active > 3) field_new_d(i,j) = 0
-  elseif (field_d(i,j) == 0) then
-    if (neighbors_active == 3) field_new_d(i,j) = 1
-    if (neighbors_active /= 3) field_new_d(i,j) = 0
-  endif
+  !if (field_d(i,j) == 1 ) then
+  !  if (neighbors_active < 2) field_new_d(i,j) = 0
+  !  if (neighbors_active == 2 .or. neighbors_active == 3) field_new_d(i,j) = 1
+  !  if (neighbors_active > 3) field_new_d(i,j) = 0
+  !elseif (field_d(i,j) == 0) then
+  !  if (neighbors_active == 3) field_new_d(i,j) = 1
+  !  if (neighbors_active /= 3) field_new_d(i,j) = 0
+  !endif
 
   ! This seems as efficient (a bit less efficient, more compact):
-  !field_new(i,j) = merge(1,0, (field(i,j) == 1 .and. (neighbors_active == 2 .or. neighbors_active == 3).or.&
-  !                 (field(i,j) == 0 .and. neighbors_active == 3)))
+  field_new_d(i,j) = merge(1,0, (field_d(i,j) == 1 .and. (neighbors_active == 2 .or. neighbors_active == 3).or.&
+                   (field_d(i,j) == 0 .and. neighbors_active == 3)))
 
 end do
 end do

@@ -17,8 +17,8 @@ allocate(dims(0:ndims-1))
 allocate(periodic(0:ndims-1))
 
 
-dims(0) = 4
-dims(1) = 4
+dims(0) = 1
+dims(1) = 1
 reorder = .false.
 periodic = .true.
 

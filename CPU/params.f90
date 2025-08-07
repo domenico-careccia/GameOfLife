@@ -29,6 +29,7 @@ implicit none
 nxglobal = 10000
 nyglobal = 10000
 
+
 end subroutine set_grid_parameters
 
 

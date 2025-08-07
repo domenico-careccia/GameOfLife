@@ -16,8 +16,8 @@ integer :: i, j
 
 time = 0
 field = 0 
-do i = 1,nx
 do j = 1,ny
+do i = 1,nx
   if (x(i) == 20 .and. y(j) == 130) field(i,j) = 1
   if (x(i) == 21 .and. y(j) == 129) field(i,j) = 1
   if (x(i) == 22 .and. y(j) == 129) field(i,j) = 1
@@ -46,8 +46,8 @@ integer :: i, j, neighbors_active
 time  = time + 1
 call communicate()
 
-do i = 1,nx
 do j = 1,ny
+do i = 1,nx
 
   !call count_active_neighbors(i, j, neighbors_active)         ! This is inefficient
   neighbors_active = sum(field(i-1:i+1, j-1:j+1)) - field(i,j) ! This is more efficient
